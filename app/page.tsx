@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { SiteFooter } from "@/components/site-footer"
 import { Bot, Calendar, Clapperboard, Mail, Youtube, Instagram, Share2 } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 
 export default function Home() {
   return (
@@ -23,7 +24,20 @@ export default function Home() {
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
             About
           </Link>
+          <SignedIn>
+            <Link className="text-sm font-medium hover:underline underline-offset-4" href="/dashboard">
+              Dashboard
+            </Link>
+          </SignedIn>
           <ModeToggle />
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button size="sm">Sign In</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </nav>
       </header>
       <main className="flex-1">
@@ -39,9 +53,11 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-y-4 md:space-x-4 md:space-y-0 animate-fade-in-up delay-200">
-                <Button size="lg" className="h-12 px-8 shadow-lg hover:shadow-xl transition-all">
-                  Get Started Free
-                </Button>
+                <Link href="/dashboard">
+                  <Button size="lg" className="h-12 px-8 shadow-lg hover:shadow-xl transition-all">
+                    Get Started Free
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline" className="h-12 px-8 shadow-sm hover:shadow-md transition-all">
                   View Demo
                 </Button>
