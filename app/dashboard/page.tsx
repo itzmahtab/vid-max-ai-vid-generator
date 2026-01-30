@@ -62,18 +62,8 @@ export default async function DashboardPage() {
             <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
             <p className="text-muted-foreground">Welcome back, {user.firstName}!</p>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <div className="p-6 border rounded-lg shadow-sm bg-card">
-                    <h2 className="text-xl font-semibold mb-2">My Videos</h2>
-                    <p className="text-sm text-muted-foreground">You haven't generated any videos yet.</p>
-                </div>
-
-                <div className="p-6 border rounded-lg shadow-sm bg-card">
-                    <h2 className="text-xl font-semibold mb-2">Context Sync</h2>
-                    <p className="text-sm text-muted-foreground">
-                        User ID Synced: <span className="font-mono bg-muted px-1 rounded">{user.id}</span>
-                    </p>
-                </div>
+            <div className="mt-8">
+                {/* Empty container for future dashboard widgets */}
             </div>
         </div>
     )
