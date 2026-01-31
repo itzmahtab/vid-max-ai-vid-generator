@@ -162,10 +162,6 @@ export function SeriesDetails({ onSchedule, onBack, initialData }: SeriesDetails
                                 <span>Platforms:</span>
                                 <span className="text-white font-medium">{selectedPlatforms.length || 0} selected</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span>Frequency:</span>
-                                <span className="text-white font-medium italic">Pending AI Generation...</span>
-                            </div>
                         </div>
                     </Card>
                 </div>
