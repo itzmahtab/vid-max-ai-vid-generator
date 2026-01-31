@@ -172,7 +172,7 @@ export function SeriesDetails({ onSchedule, onBack, initialData }: SeriesDetails
                 onNext={() => onSchedule({ name, duration, platforms: selectedPlatforms, publishTime })}
                 isNextDisabled={!isFormValid}
                 nextLabel="Schedule & Generate"
-                backLabel="Back"
+                backLabel="Back to Captions"
             />
         </div>
     )

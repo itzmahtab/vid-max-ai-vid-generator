@@ -131,7 +131,7 @@ export function MusicSelection({ onNext, onBack, initialSelected = [] }: MusicSe
                 onBack={onBack}
                 onNext={() => onNext(selectedMusic)}
                 isNextDisabled={selectedMusic.length === 0}
-                backLabel="Back to Voice"
+                backLabel="Back to Style"
             />
         </div>
     )

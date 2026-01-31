@@ -96,7 +96,7 @@ export function CaptionSelection({ onNext, onBack, initialSelected }: CaptionSel
                 onBack={onBack}
                 onNext={() => selectedStyle && onNext(selectedStyle)}
                 isNextDisabled={!selectedStyle}
-                backLabel="Back"
+                backLabel="Back to Music"
             />
 
             <style jsx global>{`
