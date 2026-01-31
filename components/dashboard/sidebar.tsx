@@ -41,10 +41,12 @@ export function DashboardSidebar() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col gap-6 p-4 overflow-y-auto">
                 {/* Create Button */}
-                <Button className="w-full gap-2 text-md py-6 shadow-md" size="lg">
-                    <Plus className="h-5 w-5" />
-                    Create New Series
-                </Button>
+                <Link href="/dashboard/create">
+                    <Button className="w-full gap-2 text-md py-6 shadow-md" size="lg">
+                        <Plus className="h-5 w-5" />
+                        Create New Series
+                    </Button>
+                </Link>
 
                 {/* Navigation */}
                 <nav className="flex flex-col gap-2">
