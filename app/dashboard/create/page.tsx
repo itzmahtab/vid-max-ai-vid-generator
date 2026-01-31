@@ -7,13 +7,19 @@ import { NicheSelection } from "@/components/create/niche-selection"
 import { MusicSelection } from "@/components/create/music-selection"
 import { VideoStyleSelection } from "@/components/create/video-style-selection"
 import { CaptionSelection } from "@/components/create/caption-selection"
+import { ContentScript } from "@/components/create/content-script"
 import { SeriesDetails } from "@/components/create/series-details"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export default function CreateSeriesPage() {
+    const router = useRouter()
     const [currentStep, setCurrentStep] = useState(1)
+    const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         niche: "",
         language: "",
@@ -67,14 +73,35 @@ export default function CreateSeriesPage() {
         setCurrentStep(7)
     }
 
-    const handleSchedule = (data: { name: string; duration: string; platforms: string[]; publishTime: string }) => {
-        setFormData((prev) => ({
-            ...prev,
-            seriesDetails: data
-        }))
-        console.log("Scheduling Series:", { ...formData, seriesDetails: data })
-        // Submit to API here
-        alert("Series Scheduled Successfully!")
+    const handleSchedule = async (data: { name: string; duration: string; platforms: string[]; publishTime: string }) => {
+        setLoading(true)
+        try {
+            const finalData = {
+                ...formData,
+                seriesDetails: data
+            }
+
+            const response = await fetch('/api/series', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(finalData)
+            })
+
+            if (!response.ok) {
+                const error = await response.text()
+                throw new Error(error || 'Failed to schedule series')
+            }
+
+            toast.success("Series Scheduled Successfully!")
+            router.push('/dashboard')
+        } catch (error: any) {
+            console.error("Scheduling Error:", error)
+            toast.error(error.message || "Something went wrong")
+        } finally {
+            setLoading(false)
+        }
     }
 
     const handleBack = () => {
@@ -94,12 +121,20 @@ export default function CreateSeriesPage() {
             </div>
 
             {/* Stepper */}
-            <div className="mb-10">
+            <div className={cn("mb-10", loading && "opacity-50 pointer-events-none")}>
                 <CreateSeriesStepper currentStep={currentStep} />
             </div>
 
             {/* Step Content */}
-            <div className="flex-1 space-y-4">
+            <div className={cn("flex-1 space-y-4", loading && "opacity-50 pointer-events-none relative")}>
+                {loading && (
+                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/50 rounded-xl">
+                        <div className="flex flex-col items-center gap-3">
+                            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+                            <p className="font-bold text-lg">Scheduling your series...</p>
+                        </div>
+                    </div>
+                )}
                 <div className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
                     Step {currentStep} of 7
                 </div>
@@ -143,16 +178,12 @@ export default function CreateSeriesPage() {
                     />
                 )}
 
-                {/* Placeholder for AI Script (Step 6) */}
                 {currentStep === 6 && (
-                    <div className="text-center py-20 flex flex-col items-center gap-4">
-                        <h2 className="text-2xl font-bold">AI Script Step Coming Soon</h2>
-                        <p className="text-muted-foreground">This is where the AI will generate your content script.</p>
-                        <div className="flex gap-4">
-                            <Button variant="outline" onClick={handleBack}>Back</Button>
-                            <Button onClick={() => setCurrentStep(7)}>Continue to Schedule</Button>
-                        </div>
-                    </div>
+                    <ContentScript
+                        onNext={handleScriptSelect}
+                        onBack={handleBack}
+                        initialValue={formData.script}
+                    />
                 )}
 
                 {currentStep === 7 && (

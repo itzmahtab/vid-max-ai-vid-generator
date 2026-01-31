@@ -64,7 +64,7 @@ export function CaptionSelection({ onNext, onBack, initialSelected }: CaptionSel
                                 )}
 
                                 <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/40 backdrop-blur-sm border border-white/10 text-[10px] text-white/70 uppercase font-black tracking-tighter">
-                                    Preivew
+                                    Preview
                                 </div>
                             </div>
 
