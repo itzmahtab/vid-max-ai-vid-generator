@@ -52,13 +52,19 @@ export async function POST(req: Request) {
             .select()
 
         if (error) {
-            console.error("Supabase error:", error)
-            return new NextResponse(error.message, { status: 500 })
+            console.error("SUPABASE ERROR ON INSERT:", {
+                message: error.message,
+                details: error.details,
+                hint: error.hint,
+                code: error.code,
+                data: { user_id: userId, name: seriesDetails.name }
+            })
+            return new NextResponse(`Database error: ${error.message} (Code: ${error.code})`, { status: 500 })
         }
 
-        return NextResponse.json(data[0])
-    } catch (error) {
-        console.error("API Error:", error)
-        return new NextResponse("Internal Server Error", { status: 500 })
+        return NextResponse.json(data ? data[0] : { success: true })
+    } catch (error: any) {
+        console.error("API ROUTE ERROR:", error)
+        return new NextResponse(`Internal Server Error: ${error.message}`, { status: 500 })
     }
 }

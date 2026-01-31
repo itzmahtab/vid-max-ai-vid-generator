@@ -158,11 +158,12 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                 }
 
                 if (type === "pop") {
+                    const { highlightColor, fillColor, ...restStyle } = customStyle
                     return (
                         <span
                             key={i}
                             style={{
-                                ...customStyle,
+                                ...restStyle,
                                 animationDelay: `${i * 0.1}s`,
                                 display: "inline-block"
                             }}
@@ -177,12 +178,13 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                 }
 
                 if (type === "highlight") {
+                    const { highlightColor, fillColor, ...restStyle } = customStyle
                     return (
                         <span
                             key={i}
                             style={{
-                                ...customStyle,
-                                color: isWordActive ? (customStyle.highlightColor || "#FACC15") : customStyle.color,
+                                ...restStyle,
+                                color: isWordActive ? (highlightColor || "#FACC15") : customStyle.color,
                                 transform: isWordActive ? "scale(1.1)" : "scale(1)",
                                 transition: "all 0.2s ease"
                             }}
@@ -194,11 +196,12 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                 }
 
                 if (type === "box") {
+                    const { highlightColor, fillColor, ...restStyle } = customStyle
                     return (
                         <span
                             key={i}
                             style={{
-                                ...customStyle,
+                                ...restStyle,
                                 backgroundColor: isWordActive ? customStyle.backgroundColor : "transparent",
                                 color: isWordActive ? customStyle.color : "#FFFFFF",
                                 borderRadius: "4px",
@@ -213,11 +216,12 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                 }
 
                 if (type === "gradient") {
+                    const { highlightColor, fillColor, ...restStyle } = customStyle
                     return (
                         <span
                             key={i}
                             style={{
-                                ...customStyle,
+                                ...restStyle,
                                 backgroundSize: "200% auto",
                             }}
                             className="text-xl md:text-3xl bg-clip-text animate-[textShimmer_3s_linear_infinite]"
@@ -228,6 +232,7 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                 }
 
                 if (type === "karaoke") {
+                    const { highlightColor, fillColor, ...restStyle } = customStyle
                     return (
                         <span
                             key={i}
@@ -239,7 +244,7 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                                 className="absolute left-0 top-0 overflow-hidden transition-all duration-300 pointer-events-none"
                                 style={{
                                     width: isWordActive ? "100%" : "0%",
-                                    color: customStyle.fillColor,
+                                    color: fillColor || "#22C55E",
                                     whiteSpace: "nowrap"
                                 }}
                             >
@@ -249,7 +254,8 @@ function AnimatedCaption({ text, type, customStyle, isActive }: { text: string, 
                     )
                 }
 
-                return <span key={i} style={customStyle}>{word}</span>
+                const { highlightColor, fillColor, ...restStyle } = customStyle
+                return <span key={i} style={restStyle}>{word}</span>
             })}
         </div>
     )
