@@ -13,8 +13,7 @@ const steps = [
     { id: 3, label: "Video Style" },
     { id: 4, label: "Music" },
     { id: 5, label: "Caption Style" },
-    { id: 6, label: "AI Script" },
-    { id: 7, label: "Schedule" },
+    { id: 6, label: "Schedule" },
 ]
 
 export function CreateSeriesStepper({ currentStep }: CreateSeriesStepperProps) {

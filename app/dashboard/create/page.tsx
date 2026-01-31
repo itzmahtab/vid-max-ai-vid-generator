@@ -7,7 +7,6 @@ import { NicheSelection } from "@/components/create/niche-selection"
 import { MusicSelection } from "@/components/create/music-selection"
 import { VideoStyleSelection } from "@/components/create/video-style-selection"
 import { CaptionSelection } from "@/components/create/caption-selection"
-import { ContentScript } from "@/components/create/content-script"
 import { SeriesDetails } from "@/components/create/series-details"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -28,7 +27,6 @@ export default function CreateSeriesPage() {
         videoStyle: "",
         bgMusic: [] as string[],
         captionStyle: "",
-        script: "",
         media: "",
         seriesDetails: {
             name: "",
@@ -66,11 +64,6 @@ export default function CreateSeriesPage() {
     const handleCaptionStyleSelect = (captionStyle: string) => {
         setFormData((prev) => ({ ...prev, captionStyle }))
         setCurrentStep(6)
-    }
-
-    const handleScriptSelect = (script: string) => {
-        setFormData((prev) => ({ ...prev, script }))
-        setCurrentStep(7)
     }
 
     const handleSchedule = async (data: { name: string; duration: string; platforms: string[]; publishTime: string }) => {
@@ -136,7 +129,7 @@ export default function CreateSeriesPage() {
                     </div>
                 )}
                 <div className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
-                    Step {currentStep} of 7
+                    Step {currentStep} of 6
                 </div>
                 {currentStep === 1 && (
                     <NicheSelection
@@ -179,14 +172,6 @@ export default function CreateSeriesPage() {
                 )}
 
                 {currentStep === 6 && (
-                    <ContentScript
-                        onNext={handleScriptSelect}
-                        onBack={handleBack}
-                        initialValue={formData.script}
-                    />
-                )}
-
-                {currentStep === 7 && (
                     <SeriesDetails
                         onSchedule={handleSchedule}
                         onBack={handleBack}
@@ -195,7 +180,7 @@ export default function CreateSeriesPage() {
                 )}
 
                 {/* Placeholder for future steps (if any) */}
-                {currentStep > 7 && (
+                {currentStep > 6 && (
                     <div className="text-center py-20 flex flex-col items-center gap-4">
                         <h2 className="text-2xl font-bold text-primary">All Steps Completed!</h2>
                         <div className="bg-muted p-6 rounded-lg text-left max-w-md w-full space-y-2">

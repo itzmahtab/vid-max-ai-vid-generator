@@ -21,7 +21,6 @@ export async function POST(req: Request) {
             videoStyle,
             bgMusic,
             captionStyle,
-            script,
             seriesDetails
         } = body
 
@@ -42,7 +41,6 @@ export async function POST(req: Request) {
                     video_style: videoStyle,
                     bg_music: bgMusic,
                     caption_style: captionStyle,
-                    script: script || null,
                     duration: seriesDetails.duration,
                     platforms: seriesDetails.platforms,
                     publish_time: seriesDetails.publishTime,
